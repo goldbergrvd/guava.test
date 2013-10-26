@@ -1,26 +1,26 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="guava-test" basedir="." default="report">
- 
-	<path id="classpath">
-		<fileset dir="${basedir}/lib" includes="**/*.jar" />
-	</path>
-	
+
 	<property name="src.dir" value="src" />
 	<property name="build.dir" value="build" />
 	<property name="lib.dir" value="lib" />
 	<property name="classes.dir" value="${build.dir}/classes" />
-	<property name="test.name" value="guava.test.base.AsciiTest" />
+	<property name="test.dir" value="${src.dir}" />
 	<property name="report.dir" value="report" />
+	<property name="retrieve.flag" value="false" />
+	
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
 	
 	<target name="clean">
 		<delete dir="${build.dir}" />
-		<!-- <delete file="${lib.dir}/*.jar" /> -->
 	</target>
 	
-	<!-- <target name="retrieve" depends="clean">
+	<target name="retrieve" depends="clean" if="${retrieve.flag}">
 		<ivy:retrieve />
-	</target> -->
+	</target>
 	
-	<target name="compile" depends="clean">
+	<target name="compile" depends="retrieve">
 		<mkdir dir="${classes.dir}" />
 		<javac srcdir="${src.dir}"
 			destdir="${classes.dir}"
@@ -31,7 +31,11 @@
 	<target name="test" depends="compile">
 		<junit printsummary="yes">
 			<formatter type="xml"/>
-			<test name="${test.name}" todir="${report.dir}" />
+			<batchtest todir="${report.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
 			<classpath>
 				<pathelement location="${classes.dir}" />
 				<path refid="classpath"/>
@@ -41,11 +45,11 @@
 	
 	<target name="report" depends="test">
         <junitreport todir="${report.dir}">
-            <fileset dir="${report.dir}">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${report.dir}/html"/>
-        </junitreport>
-    </target>
+			<fileset dir="${report.dir}">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${report.dir}/html"/>
+		</junitreport>
+	</target>
 	
 </project>
