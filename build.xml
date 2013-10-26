@@ -1,0 +1,51 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="guava-test" basedir="." default="report">
+ 
+	<path id="classpath">
+		<fileset dir="${basedir}/lib" includes="**/*.jar" />
+	</path>
+	
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir" value="lib" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="test.name" value="guava.test.base.AsciiTest" />
+	<property name="report.dir" value="report" />
+	
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<!-- <delete file="${lib.dir}/*.jar" /> -->
+	</target>
+	
+	<!-- <target name="retrieve" depends="clean">
+		<ivy:retrieve />
+	</target> -->
+	
+	<target name="compile" depends="clean">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}"
+			destdir="${classes.dir}"
+			classpathref="classpath"
+			includeantruntime="false" />
+	</target>
+	
+	<target name="test" depends="compile">
+		<junit printsummary="yes">
+			<formatter type="xml"/>
+			<test name="${test.name}" todir="${report.dir}" />
+			<classpath>
+				<pathelement location="${classes.dir}" />
+				<path refid="classpath"/>
+			</classpath>
+		</junit>
+	</target>
+	
+	<target name="report" depends="test">
+        <junitreport todir="${report.dir}">
+            <fileset dir="${report.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${report.dir}/html"/>
+        </junitreport>
+    </target>
+	
+</project>
