@@ -1,10 +1,7 @@
 <ivy-module version="2.0">
 	<info organisation="hubert.guava.test" module="guava.test"/>
 	<dependencies>
-		<dependency org="com.google.guava" name="guava" rev="r09"/>
+		<dependency org="com.google.guava" name="guava" rev="15.0"/>
 		<dependency org="junit" name="junit" rev="4.11"/>
-		
-		<exclude org="*" ext="*" type="javadoc"/>
-		<exclude org="*" ext="*" type="source"/>
 	</dependencies>
 </ivy-module>
