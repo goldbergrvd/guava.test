@@ -33,10 +33,10 @@ public class SplitterTest{
 		String[] StrSplited1 = {"str", "1,s", "tr2", ",st", "r3,", "str", "4"};
 		String[] StrSplited2 = {"str", "1:s", "tr2", ":st", "r3:", "str", "4"};
 		
-		String[] commaStrSplited = Iterables.toArray(Splitter.on(",").fixedLength(3).split(commaStr), String.class);
+		String[] commaStrSplited = Iterables.toArray(Splitter.fixedLength(3).split(commaStr), String.class);
 		assertArrayEquals(StrSplited1, commaStrSplited);
 		
-		String[] semicolonStrSplited = Iterables.toArray(Splitter.on(":").fixedLength(3).split(semicolonStr), String.class);
+		String[] semicolonStrSplited = Iterables.toArray(Splitter.fixedLength(3).split(semicolonStr), String.class);
 		assertArrayEquals(StrSplited2, semicolonStrSplited);
 	}
 	

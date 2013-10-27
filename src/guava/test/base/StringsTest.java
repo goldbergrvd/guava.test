@@ -6,12 +6,19 @@ import static org.junit.Assert.*;
 
 public class StringsTest{
 	
-	/*@Test
+	@Test
 	public void testCommonPrefix(){
-		String str1 = "this is str1";
+		String str1 = "this is, str1";
 		String str2 = "this is str2";
-		System.out.println(Strings.commonPrefix(str1, str2));
-	}*/
+		assertEquals("this is", Strings.commonPrefix(str1, str2));
+	}
+	
+	@Test
+	public void testCommonSrffix(){
+		String str1 = "Hello Guava, My Name is Hubert!";
+		String str2 = "Good afternoon, how are you, Hubert!";
+		assertEquals("Hubert!", Strings.commonSuffix(str1, str2).trim());
+	}
 
 	@Test 
 	public void testEmptyToNull(){
