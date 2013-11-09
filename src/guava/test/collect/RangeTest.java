@@ -37,4 +37,13 @@ public class RangeTest{
 		assertEquals("(-∞‥10]", Range.upTo(new Integer(10), BoundType.CLOSED).toString());
 		assertEquals("(10‥+∞)", Range.downTo(new Integer(10), BoundType.OPEN).toString());
 	}
+
+	@Test
+	public void testRangesInteract(){
+		assertEquals("[15‥20]", Range.closed(new Integer(10), new Integer(20))
+					.intersection(Range.closed(new Integer(15), new Integer(25))).toString());
+
+		assertEquals("[10‥25)", Range.closedOpen(new Integer(10), new Integer(20))
+							.span(Range.closedOpen(new Integer(15), new Integer(25))).toString());
+	}
 }
