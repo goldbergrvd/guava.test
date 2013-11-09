@@ -8,6 +8,7 @@ import com.google.common.collect.*;
 public class RangeTest{
 	@Test
 	public void testGeneralRange(){
+		assertEquals("[10‥10]", Range.singleton(new Integer(10)).toString());
 		assertEquals("(-∞‥+∞)", Range.all().toString());
 		assertEquals("(10‥20]", Range.range(new Integer(10), BoundType.OPEN,
 											new Integer(20), BoundType.CLOSED).toString());
